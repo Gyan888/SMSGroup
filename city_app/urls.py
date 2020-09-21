@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import CityGetView
+from .views import CityPostGetView, CityUpdateDeleteAPIView
 
 app_name = 'city_app'
 
 urlpatterns = [
-    path('', CityGetView.as_view(), name ='city-get-data')
+    path('', CityPostGetView.as_view(), name ='city-get-set-data'),
+    path('<int:app_id>/', CityUpdateDeleteAPIView.as_view(), name='city-put-delete-data'),
 ]
