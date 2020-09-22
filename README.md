@@ -1,7 +1,7 @@
 
 
 # `Prequisite`
-npm version=6.7.0 
+npm version=6.7.0 <br/>
 python version =3.7.6
 
 ## `Project Set up`
