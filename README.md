@@ -17,6 +17,7 @@ load migrations
 load data from fixtures to db
 
 #### `cd city_app_frontend`
+switch the directory
 
 #### `npm install `
 install npm dependecies
