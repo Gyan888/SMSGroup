@@ -1,7 +1,7 @@
 import { throwError } from "rxjs";
 
-export async function fetchCityAppData() {
-    let url = `${process.env.REACT_APP_API_URL}/city-app/?page=1`;
+export async function fetchCityAppData(pageId=1) {
+    let url = `${process.env.REACT_APP_API_URL}/city-app/?page=${pageId}`;
     return fetch(url, {
         method: "GET",
         headers:{

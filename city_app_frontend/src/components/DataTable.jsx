@@ -11,18 +11,24 @@ import Edit from '@material-ui/icons/Edit';
 import FirstPage from '@material-ui/icons/FirstPage';
 import LastPage from '@material-ui/icons/LastPage';
 import Search from '@material-ui/icons/Search';
-import { useEffect } from 'react';
+import FilterList from '@material-ui/icons/FilterList';
+import { fetchCityAppData } from '../services/APIServices';
 
 let DataTable = () =>{
 
-    let fetchInitialData = () =>{
-      
+    let fetchCityData = query =>
+      new Promise((resolve, reject) =>{
+        let pageId = query.page + 1
+        fetchCityAppData(pageId)
+        .then(result =>{
+          resolve({
+            data: result.results,
+            page: result.page - 1,
+            totalCount: result.total,
+          })
+        });
+      });
 
-    };
-
-    useEffect(()=>{
-      fetchInitialData();
-    }, []);
 
     const tableIcons = {
       Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -35,18 +41,18 @@ let DataTable = () =>{
       LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
       NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
       PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
-      ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
       Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
       SortArrow: forwardRef((props, ref) => <ArrowUpward {...props} ref={ref} />),
+      Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
       };
 
     const [columns, setColumns] = useState([
-      { title: 'City', field: 'city' },
-      { title: 'Start Date', field: 'start_date', type: 'date'},
-      { title: 'End Date', field: 'end_date', type: 'date'},
-      { title: 'Price', field: 'price', type: 'numeric' },
-      { title: 'Status', field: 'status'},
-      { title: 'Color', field: 'color'}
+      { title: 'City', field: 'city' ,filtering: false},
+      { title: 'Start Date', field: 'start_date', type: 'date', filtering: true, filterPlaceholder: "Filter By Start Date"},
+      { title: 'End Date', field: 'end_date', type: 'date', filtering: true, filterPlaceholder: "Filter By End Date"},
+      { title: 'Price', field: 'price', type: 'numeric', filtering: false},
+      { title: 'Status', field: 'status', filtering: false},
+      { title: 'Color', field: 'color', filtering: false}
     ]);
 
     const [data, setData] = useState([]);
@@ -56,8 +62,12 @@ let DataTable = () =>{
         title="City App Table "
         columns={columns}
         style={{'height': "100%"}}
-        data={data}
+        data={fetchCityData}
         icons={tableIcons}
+        options={{
+          filtering: true,
+          pageSize: 10
+        }}
         editable={{
           onRowAdd: newData =>
             new Promise((resolve, reject) => {
