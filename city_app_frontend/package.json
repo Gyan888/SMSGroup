@@ -13,7 +13,8 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
     "react-app-env": "^1.2.3",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.20",
+    "moment": "2.24.0"
   },
   "scripts": {
     "start": "react-app-env --env-file=config/.local.env start",

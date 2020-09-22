@@ -24,7 +24,7 @@ SECRET_KEY = ')pqam^okk+q6t930vg0=v^)e6v3ol2nenci0-_+6cum1yyq57y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 
@@ -36,12 +36,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'city_app',
-    'rest_framework'
+    'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -68,7 +70,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'SMSGroup.wsgi.application'
-
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases

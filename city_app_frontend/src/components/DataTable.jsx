@@ -12,14 +12,28 @@ import FirstPage from '@material-ui/icons/FirstPage';
 import LastPage from '@material-ui/icons/LastPage';
 import Search from '@material-ui/icons/Search';
 import FilterList from '@material-ui/icons/FilterList';
-import { fetchCityAppData } from '../services/APIServices';
+import { fetchCityAppData, setCityAppData, deleteCityAppData, updateCityAppData} from '../services/APIServices';
+import {find, get, set, omit} from 'lodash';
 
 let DataTable = () =>{
 
+    let toDateFormat = dateTime =>{
+      if (!dateTime || typeof dateTime === 'string')
+        return dateTime;
+      return  dateTime.toISOString().split('T')[0]
+    };
+
+    const [data, setData] = useState([]);
+
     let fetchCityData = query =>
-      new Promise((resolve, reject) =>{
+        new Promise((resolve, reject) =>{
         let pageId = query.page + 1
-        fetchCityAppData(pageId)
+        let {filters, orderBy, orderDirection} = query;
+        let startDate = get(find(filters, (val => get(val, 'column.field') === 'start_date')), "value");
+        let endDate = get(find(filters, (val => get(val, 'column.field') === 'end_date')), "value");
+        orderBy = get(orderBy, 'field');
+        orderBy = orderDirection ==='desc' ? `-${orderBy}`: orderBy;
+        fetchCityAppData(pageId, toDateFormat(startDate), toDateFormat(endDate), orderBy)
         .then(result =>{
           resolve({
             data: result.results,
@@ -28,6 +42,7 @@ let DataTable = () =>{
           })
         });
       });
+
 
 
     const tableIcons = {
@@ -42,6 +57,7 @@ let DataTable = () =>{
       NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
       PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
       Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+      ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
       SortArrow: forwardRef((props, ref) => <ArrowUpward {...props} ref={ref} />),
       Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
       };
@@ -55,8 +71,6 @@ let DataTable = () =>{
       { title: 'Color', field: 'color', filtering: false}
     ]);
 
-    const [data, setData] = useState([]);
-
     return (
       <MaterialTable
         title="City App Table "
@@ -66,37 +80,38 @@ let DataTable = () =>{
         icons={tableIcons}
         options={{
           filtering: true,
-          pageSize: 10
+          pageSize: 10,
+          addRowPosition: "first"
         }}
         editable={{
           onRowAdd: newData =>
             new Promise((resolve, reject) => {
               setTimeout(() => {
-                setData([...data, newData]);
-
-                resolve();
+                set(newData, 'start_date', toDateFormat(newData.start_date));
+                set(newData, 'end_date', toDateFormat(newData.end_date));
+                setCityAppData(newData).then(res =>{
+                  resolve();
+                });
               }, 1000)
             }),
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               setTimeout(() => {
-                const dataUpdate = [...data];
-                const index = oldData.tableData.id;
-                dataUpdate[index] = newData;
-                setData([...dataUpdate]);
-
-                resolve();
+                const {id} = newData
+                set(newData, 'start_date', toDateFormat(newData.start_date));
+                set(newData, 'end_date', toDateFormat(newData.end_date));
+                delete newData['id'];
+                updateCityAppData(id, newData).then(res =>{
+                  resolve();
+                })
               }, 1000)
             }),
           onRowDelete: oldData =>
             new Promise((resolve, reject) => {
               setTimeout(() => {
-                const dataDelete = [...data];
-                const index = oldData.tableData.id;
-                dataDelete.splice(index, 1);
-                setData([...dataDelete]);
-
-                resolve()
+                deleteCityAppData(oldData.id).then(res=>{
+                  resolve();
+                });
               }, 1000)
             }),
         }}

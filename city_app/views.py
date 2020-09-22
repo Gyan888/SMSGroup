@@ -17,8 +17,9 @@ class CityPostGetView(ListCreateAPIView):
     def get_queryset(self):
         query_params = self.request.query_params.dict()
         query_params.pop('page')
+        order_by = query_params.pop('order_by')
         query_params = dict(filter(lambda x: x[1], query_params.items()))
-        return CityInfo.objects.filter(Q(**query_params))
+        return CityInfo.objects.filter(Q(**query_params)).order_by(order_by)
 
 
     def post(self, request, *args, **kwargs):

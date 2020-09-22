@@ -1,7 +1,7 @@
 import { throwError } from "rxjs";
 
-export async function fetchCityAppData(pageId=1) {
-    let url = `${process.env.REACT_APP_API_URL}/city-app/?page=${pageId}`;
+export async function fetchCityAppData(pageId=1, startDate='', endDate='', orderBy='-id') {
+    let url = `${process.env.REACT_APP_API_URL}/city-app/?page=${pageId}&start_date__gte=${startDate}&end_date__lte=${endDate}&order_by=${orderBy}`;
     return fetch(url, {
         method: "GET",
         headers:{
@@ -53,20 +53,19 @@ export async function updateCityAppData(id, data){
 };
 
 
-export async function deleteCityAppData(id, data){
+export async function deleteCityAppData(id){
     let url = `${process.env.REACT_APP_API_URL}/city-app/${id}/`;
     return fetch(url, {
         method: "DELETE",
         headers:{
           'Content-Type': "application/json",
-        },
-        body:JSON.stringify(data)
+        }
       }).then(response=>{
         console.log("response =>",response);
         if (!response.ok) {
           throwError("No data")
         }
-        return response.json()
+        return response.ok
       })
 };
 
