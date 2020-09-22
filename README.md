@@ -36,6 +36,8 @@ come back to django project
 open localhost project is ready to run
 
 
+## `For Running in development mode `
+
 #### `npm start`
 from city_app_frontend directory
 only development
@@ -45,7 +47,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `python manage.py runserver 0:9000`
+#### `python manage.py runserver 0:9000`
 only development
 connects the backend and frontend
 
