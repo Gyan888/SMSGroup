@@ -13,7 +13,7 @@ import LastPage from '@material-ui/icons/LastPage';
 import Search from '@material-ui/icons/Search';
 import FilterList from '@material-ui/icons/FilterList';
 import { fetchCityAppData, setCityAppData, deleteCityAppData, updateCityAppData} from '../services/APIServices';
-import {find, get, set, omit} from 'lodash';
+import {find, get, set} from 'lodash';
 
 let DataTable = () =>{
 
@@ -22,8 +22,6 @@ let DataTable = () =>{
         return dateTime;
       return  dateTime.toISOString().split('T')[0]
     };
-
-    const [data, setData] = useState([]);
 
     let fetchCityData = query =>
         new Promise((resolve, reject) =>{
@@ -42,8 +40,6 @@ let DataTable = () =>{
           })
         });
       });
-
-
 
     const tableIcons = {
       Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
