@@ -1,8 +1,7 @@
 
 
 # `Prequisite`
-node version=11.15 or above <br />
-npm package manager <br />
+npm version=6.7.0 
 python version =3.7.6
 
 ## `Project Set up`
