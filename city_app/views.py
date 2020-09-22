@@ -10,7 +10,7 @@ from .models import CityInfo
 
 # Create your views here.
 
-class CityPostGetView(APIView):
+class CityPostGetView(ListCreateAPIView):
     serializer_class = CitySerializer
     pagination_class = CustomPagination
 
