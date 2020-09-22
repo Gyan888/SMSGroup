@@ -8,32 +8,31 @@ python version =3.7.6
 
 ## `Project Set up`
 
-### `pip install -r requirement.text `
+## `pip install -r requirement.text `
 install all the python requirements for python
 
-### `python manage.py migrate`
+## `python manage.py migrate`
 load migrations
 
-### `python manage.py loaddata --app city_info fixtures.json`
+## `python manage.py loaddata --app city_info fixtures.json`
 load data from fixtures to db
 
-### `cd city_app_frontend`
+## `cd city_app_frontend`
 
-### `npm install `
+## `npm install `
 install npm dependecies
 
-### `npm run build`
+## `npm run build`
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
-### `cd ..`
+## `cd ..`
 come back to django project
 
-### `python manage.py runserver 0:80`
+## `python manage.py runserver 0:80`
 open localhost project is ready to run
-
 
 ## `For Running in development mode `
 
