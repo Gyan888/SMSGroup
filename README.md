@@ -6,10 +6,13 @@ node version=11.15 or above <br />
 npm package manager <br />
 python version =3.7.6
 
-
+## `Project Set up`
 
 ### `pip install -r requirement.text `
 install all the python requirements for python
+
+### `python manage.py migrate`
+load migrations
 
 ### `python manage.py loaddata --app city_info fixtures.json`
 load data from fixtures to db
@@ -20,14 +23,10 @@ load data from fixtures to db
 install npm dependecies
 
 ### `npm run build`
-
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
-
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
-
-
 
 ### `cd ..`
 come back to django project
