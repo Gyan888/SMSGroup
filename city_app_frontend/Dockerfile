@@ -3,5 +3,7 @@ USER root
 WORKDIR /frontend
 COPY . /frontend
 ARG API_URL
-ENV REACT_APP_HOST_IP_ADDRESS $API_URL
+ENV REACT_APP_API_URL $API_URL
+EXPOSE 3000
+RUN npm install
 RUN npm run build
