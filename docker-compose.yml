@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./
+    command: python manage.py runserver 0.0.0.0:80
+    ports:
+      - "80:80"
+    container_name: backend_sms_grp
+  frontend:
+    build:
+      context: ./city_app_frontend
+    volumes:
+      - build_folder:/city_app_frontend/build
+    container_name: frontend_sms_grp
+  nginx:
+    image: nginx:latest
+    ports:
+      - 8000:80
+    volumes:
+      - ./webserver/nginx-proxy.conf:/etc/nginx/conf.d/default.conf:ro
+      - build_folder:/var/www/frontend
+    depends_on:
+      - backend
+      - frontend
+    container_name: nginx
+volumes:
+  build_folder:

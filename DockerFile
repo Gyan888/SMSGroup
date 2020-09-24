@@ -6,4 +6,4 @@ COPY requirement.text /usr/src/app
 RUN pip install -r requirement.text
 COPY ./ /usr/src/app
 RUN python manage.py migrate
-RUN python manage.py runserver 0:80
+RUN python manage.py loaddata --app city_info fixtures.json
