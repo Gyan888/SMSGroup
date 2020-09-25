@@ -13,19 +13,19 @@ services:
       context: ./city_app_frontend
       args:
         API_URL: http://localhost/api/
-    command: npm start
-    port:
-      - "3000:3000"
     volumes:
-      - build_folder:/city_app_frontend/build
+      - build_folder:/city_app_frontend/build/
+    environment:
+      - NODE_ENV=development
     container_name: frontend_sms_grp
+    restart: on-failure
   nginx:
     image: nginx:latest
     ports:
       - 80:80
     volumes:
       - ./webserver/nginx-proxy.conf:/etc/nginx/conf.d/default.conf:ro
-      - build_folder:/var/www/frontend
+      - build_folder:/var/www/frontend/
     depends_on:
       - backend
       - frontend
