@@ -19,6 +19,7 @@
   "scripts": {
     "start": "react-app-env --env-file=config/.local.env start",
     "build": "react-app-env --env-file=config/.prod.env build",
+    "deploy": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

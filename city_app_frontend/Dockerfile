@@ -5,4 +5,4 @@ COPY . /frontend
 ARG API_URL
 ENV REACT_APP_API_URL $API_URL
 RUN npm install
-RUN npm run build
+RUN npm run deploy

@@ -4,7 +4,10 @@
 npm version=6.7.0 <br/>
 python version =3.7.6
 
-## `Project Set up`
+## `To run project in docker`
+#### `docker-compose up`
+
+## `Project Set up without docker`
 
 #### `pip install -r requirement.text `
 install all the python requirements for python
