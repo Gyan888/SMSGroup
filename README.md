@@ -6,6 +6,7 @@ python version =3.7.6
 
 ## `To run project in docker`
 #### `docker-compose up`
+project is up at http://localhost
 
 ## `Project Set up without docker`
 
