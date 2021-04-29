@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import DataTable from './components/DataTable';
+import DropBox from './components/DropBox';
 
 ReactDOM.render(
   <React.StrictMode>
-    <DataTable/>
+    {/* <DataTable/> */}
+    <DropBox/>
   </React.StrictMode>,
   document.getElementById('root')
 );
