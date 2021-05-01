@@ -1,13 +1,27 @@
 version: '3'
 
 services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=sms_group
+      - POSTGRES_USER=gyan
+      - POSTGRES_PASSWORD=gyan123
   backend:
     build:
       context: ./
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate &&
+             python manage.py loaddata --app city_info fixtures.json &&
+             python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
     container_name: backend_sms_grp
+    depends_on: 
+      - db
   frontend:
     build:
       context: ./city_app_frontend
