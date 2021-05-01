@@ -17,8 +17,6 @@ services:
              python manage.py migrate &&
              python manage.py loaddata --app city_info fixtures.json &&
              python manage.py runserver 0.0.0.0:8000"
-    ports:
-      - "8000:8000"
     container_name: backend_sms_grp
     depends_on: 
       - db
@@ -26,7 +24,7 @@ services:
     build:
       context: ./city_app_frontend
       args:
-        API_URL: http://localhost/api/
+        API_URL: http://localhost/api
     volumes:
       - build_folder:/frontend/build/
     container_name: frontend_sms_grp
