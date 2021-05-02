@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-app-env --env-file=config/.local.env start",
     "build": "react-app-env --env-file=config/.prod.env build",
-    "deploy": "export NODE_OPTIONS=--max_old_space_size=4096 && react-scripts build",
+    "deploy": "export NODE_OPTIONS=--max_old_space_size=1024 && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
